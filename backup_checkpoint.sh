@@ -84,7 +84,6 @@ function last_snapshot() {
 # Make montly snapshot @ the first day of the monthp
 dm=`/bin/date +%d`
 monthly_marker="${BACKUP_DIR}/monthly_marker"
-dm=1
 if [ "${dm}" == "1" ];then
     if [ ! -e "$monthly_marker" ];then
         $TOUCH $monthly_marker
@@ -114,8 +113,6 @@ fi
 hour=`/bin/date +%H`
 # Check already make today's snapshot
 daily_marker="${BACKUP_DIR}/daily_marker"
-
-hour='01'
 if [ "${hour}" == "01" ];then
     if [ ! -e "$daily_marker" ];then
         $TOUCH "$daily_marker"
