@@ -15,7 +15,7 @@ LOGGER="/usr/bin/logger"
 #################### ARGUMENTS ####################
 
 TARGET_DIR=$1 # target dir to make a snapshot
-len_td=$(( ${#TARGET_DIR} - 1))
+len_td=$(( ${#TARGET_DIR} - 1 ))
 if [ ${TARGET_DIR:$len_td:1} == '/' ];then
     TARGET_DIR=${TARGET_DIR:0:$len_td}
 fi
