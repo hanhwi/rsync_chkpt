@@ -1,6 +1,6 @@
 # rsync_chkpt
 
-ToDos:
+# ToDo
 	1. Reducing redundant code
 	2. Limiting disk quota and deleting old snapshot when the quota is full  
 
