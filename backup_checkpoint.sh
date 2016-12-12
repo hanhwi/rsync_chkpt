@@ -133,7 +133,7 @@ $RSYNC \
     -a -v --delete --link-dest "../hourly.1" \
     "${TARGET_DIR}" "${BACKUP_DIR}/hourly.0"
 if [ "$?" != "0" ];then
-    $LOGGER "Creating daily backup failed ($0)"
+    $LOGGER "Creating daily backup failed: $1 to ${BACKUP_DIR}/hourly.0"
 else
-    $LOGGER "Created daily backup ($1) to ${BACKUP_DIR}/hourly.0"
+    $LOGGER "Created daily backup: $1 to ${BACKUP_DIR}/hourly.0"
 fi
