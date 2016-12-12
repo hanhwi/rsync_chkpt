@@ -16,7 +16,6 @@ LOGGER="/usr/bin/logger"
 
 TARGET_DIR=$1 # target dir to make a snapshot
 TARGET_DIR=${TARGET_DIR%/*} # Remove trailing /
-echo $TARGET_DIR
 BACKUP_DIR=$2
 DISK_QUOTA=$3
 MAX_HOURLY_SNAPSHOT=6
