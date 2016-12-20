@@ -32,7 +32,7 @@ if ! [ -d "$TARGET_DIR" ];then
 fi
 
 if ! [ -d "$BACKUP_DIR" ];then
-    echo "BACKUP_DIR:${TARGET_DIR} does not exists."
+    echo "BACKUP_DIR:${BACKUP_DIR} does not exists."
     exit 1
 fi
 
