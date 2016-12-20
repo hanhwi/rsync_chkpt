@@ -112,18 +112,17 @@ else
     $RM $weekly_marker 2> /dev/null
 fi
 
-# Make daily snapshot @ 00:00
-hour=`/bin/date +%H`
-# Check already make today's snapshot
+# # Make daily snapshot @ 00:00
+# # Check already make today's snapshot
 daily_marker="${BACKUP_DIR}/daily_marker"
-if [ "${hour}" == "01" ];then
-    if [ ! -e "$daily_marker" ];then
-        $TOUCH "$daily_marker"
-        last=$(last_snapshot "hourly")
-        rotate_snapshots "daily" $MAX_DAILY_SNAPSHOT $last
-    fi
-else
-    $RM $hourly_marker 2> /dev/null
+date=`/bin/date +%d` # Today's date
+if [ ! -e "$daily_marker" ] \
+       || [ `stat -c "%y" $daily_marker | cut -d' ' -f1 | cut -d'-' -f3` != "$date" ];then
+    # Check the daily marker is created
+    # and the modification day is different to today
+    $TOUCH "$daily_marker"
+    last=$(last_snapshot "hourly")
+    rotate_snapshots "daily" $MAX_DAILY_SNAPSHOT $last
 fi
 
 # Check current disk usage and remove old snapshots
