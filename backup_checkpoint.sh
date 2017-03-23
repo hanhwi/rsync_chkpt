@@ -11,6 +11,8 @@ LS="/bin/ls"
 SORT="/usr/bin/sort"
 TOUCH="/usr/bin/touch"
 LOGGER="/usr/bin/logger"
+STAT="/usr/bin/stat"
+CUT="/usr/bin/cut"
 
 #################### ARGUMENTS ####################
 
@@ -48,7 +50,7 @@ function rotate_snapshots() {
     prev=$3
     echo "rotate_snapshots" $1 $2 $3
 
-    snapshots=(`$LS -d $BACKUP_DIR/${category}.[0-9]* 2> /dev/null | $SORT -n -k2 -t. -r`)
+    snapshots=(`$LS -d $BACKUP_DIR/${category}.[0-9]* 2> /dev/null | $SORT -n -k2,2 -t. -r`)
     echo ${snapshots[@]}
 
     if [ ${#snapshots[@]} -ne 0 ];then
@@ -76,7 +78,7 @@ function rotate_snapshots() {
 function last_snapshot() {
     # ARG1: snapshot category
     category=$1
-    snapshots=(`$LS -d $BACKUP_DIR/${category}.[0-9]* 2> /dev/null | $SORT -n -k2 -t. -r`)
+    snapshots=(`$LS -d $BACKUP_DIR/${category}.[0-9]* 2> /dev/null | $SORT -n -k2,2 -t. -r`)
     if [ ${#snapshots[@]} -ne 0 ];then 
         echo ${snapshots[0]}
     else
@@ -117,7 +119,7 @@ fi
 daily_marker="${BACKUP_DIR}/daily_marker"
 date=`/bin/date +%d` # Today's date
 if [ ! -e "$daily_marker" ] \
-       || [ `stat -c "%y" $daily_marker | cut -d' ' -f1 | cut -d'-' -f3` != "$date" ];then
+       || [ `$STAT -c "%y" $daily_marker | $CUT -d' ' -f1 | $CUT -d'-' -f3` != "$date" ];then
     # Check the daily marker is created
     # and the modification day is different to today
     $TOUCH "$daily_marker"
